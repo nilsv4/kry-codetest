@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>Add new service</h1>
+<div mat-dialog-content [formGroup]="form">
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input [required]="true" matInput #name formControlName="name" maxlength="255" placeholder="Ex. Kry public web">
+    <mat-error *ngIf="form.get('name')?.errors?.required">This field is required</mat-error>
+    <mat-hint align="end">{{name.value.length}} / 255</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>URL</mat-label>
+    <input [required]="true" matInput #url formControlName="url" maxlength="255" placeholder="Ex. kry.se">
+    <mat-error *ngIf="form.get('url')?.errors?.required">This field is required</mat-error>
+    <mat-error *ngIf="form.get('url')?.errors?.invalidUrl">Invalid URL, don't include protocol or trailing slash</mat-error>
+    <mat-hint align="start"><strong>Don't include protocol or trailing slash</strong> </mat-hint>
+    <mat-hint align="end">{{url.value.length}} / 255</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Port</mat-label>
+    <input [required]="true" matInput #port formControlName="port" maxlength="6" placeholder="Ex. 80" type="number">
+    <mat-error *ngIf="form.get('port')?.errors?.required">This field is required</mat-error>
+    <mat-error *ngIf="form.get('port')?.errors?.pattern">Invalid format</mat-error>
+    <mat-hint align="end">{{port.value.length}} / 6</mat-hint>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+  <button mat-raised-button [disabled]="!form.valid" [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">Add</button>
+</div>
