@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import {Service} from "./entities/Service";
+import {Component} from '@angular/core';
 import {ServiceService} from "./services/ServiceService";
 import {StatusService} from "./services/StatusService";
 import {ServiceViewModel} from "./entities/ServiceViewModel";
@@ -7,6 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddNewDialogComponent} from "./components/add-new-dialog/add-new-dialog.component";
 import {DeleteDialogComponent} from "./components/delete-dialog/delete-dialog.component";
 import {HistoryDialogComponent} from "./components/history-dialog/history-dialog.component";
+import {StatusTypes} from "./entities/Status";
 
 @Component({
   selector: 'app-root',
@@ -66,7 +66,7 @@ export class AppComponent {
             name: service.name,
             url: service.url,
             port: service.port,
-            state: status.state,
+            state: status.state !== StatusTypes.DOWN,
             createdAt: service.createdAt || '',
             lastCheckedAt: status.createdAt
           });

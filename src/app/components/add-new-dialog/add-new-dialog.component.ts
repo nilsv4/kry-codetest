@@ -28,7 +28,9 @@ export class AddNewDialogComponent {
         port: parseInt(this.form.get('port')?.value)
       }
 
-      this.serviceService.add(newService).subscribe();
+      this.serviceService.add(newService).subscribe(_ => {
+        this.dialogRef.close(true);
+      });
     }
   }
 

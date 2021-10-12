@@ -11,8 +11,8 @@
     <mat-label>URL</mat-label>
     <input [required]="true" matInput #url formControlName="url" maxlength="255" placeholder="Ex. kry.se">
     <mat-error *ngIf="form.get('url')?.errors?.required">This field is required</mat-error>
-    <mat-error *ngIf="form.get('url')?.errors?.invalidUrl">Invalid URL, don't include protocol or trailing slash</mat-error>
-    <mat-hint align="start"><strong>Don't include protocol or trailing slash</strong> </mat-hint>
+    <mat-error *ngIf="form.get('url')?.errors?.invalidUrl">Invalid URL, include protocol</mat-error>
+    <mat-hint align="start"><strong>Include protocol</strong> </mat-hint>
     <mat-hint align="end">{{url.value.length}} / 255</mat-hint>
   </mat-form-field>
 
@@ -22,9 +22,10 @@
     <mat-error *ngIf="form.get('port')?.errors?.required">This field is required</mat-error>
     <mat-error *ngIf="form.get('port')?.errors?.pattern">Invalid format</mat-error>
     <mat-hint align="end">{{port.value.length}} / 6</mat-hint>
+    <mat-hint align="start" *ngIf="port.value"><strong>Complete URL: {{url.value}}:{{port.value}}</strong> </mat-hint>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>
-  <button mat-raised-button [disabled]="!form.valid" [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">Add</button>
+  <button mat-raised-button [disabled]="!form.valid" cdkFocusInitial (click)="onSubmit()">Add</button>
 </div>
